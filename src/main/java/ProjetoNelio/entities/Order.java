@@ -1,6 +1,6 @@
 package ProjetoNelio.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import ProjetoNelio.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -16,6 +16,8 @@ public class Order implements Serializable {
     private Long id;
     private Instant dataHora;
 
+    private Integer orderStatus;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
@@ -23,10 +25,11 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Long id, Instant dataHora, User client) {
+    public Order(Long id, Instant dataHora,OrderStatus orderStatus, User client) {
         this.id = id;
         this.dataHora = dataHora;
         this.client = client;
+        setOrderStatus(orderStatus);
     }
 
     public Long getId() {
@@ -43,6 +46,16 @@ public class Order implements Serializable {
 
     public void setDataHora(Instant dataHora) {
         this.dataHora = dataHora;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus != null) {
+            this.orderStatus = orderStatus.getCode();
+        }
     }
 
     public User getClient() {
