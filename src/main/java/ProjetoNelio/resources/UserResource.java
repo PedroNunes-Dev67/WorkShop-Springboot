@@ -3,9 +3,12 @@ package ProjetoNelio.resources;
 import ProjetoNelio.entities.User;
 import ProjetoNelio.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,5 +30,16 @@ public class UserResource {
     public ResponseEntity<User> findById(@PathVariable Long id){
         User user = userService.findById(id);
         return ResponseEntity.ok().body(user);
+    }
+
+    @PostMapping
+    public ResponseEntity<User> addUser(@RequestBody User user){
+        User newUser = userService.insert(user);
+        return ResponseEntity.created(currentUri(newUser.getId())).body(newUser);
+    }
+
+    private static URI currentUri(Object id){
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(id).toUri();
     }
 }
