@@ -1,4 +1,4 @@
-# 💰💵 Sistema de E-Commerce
+# 💰💻 Sistema de E-Commerce
 
 ![Java](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=java)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-green?style=for-the-badge&logo=springboot)
